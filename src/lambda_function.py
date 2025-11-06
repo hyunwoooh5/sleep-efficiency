@@ -1,9 +1,6 @@
 import pickle
-from fastapi import FastAPI
-import uvicorn
-
 from typing import Literal
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field
 
 
 class Customer(BaseModel):
@@ -21,19 +18,8 @@ class Customer(BaseModel):
     getup_time: float = Field(..., ge=0)
 
 
-class PredictResponse(BaseModel):
-    sleep_efficiency: float
-
-
-app = FastAPI(title="sleep-efficiency")
-
-try:
-    with open("bin/model.pkl", "rb") as f:
-        model = pickle.load(f)
-
-except FileNotFoundError:
-    with open("model.pkl", "rb") as f:
-        model = pickle.load(f)
+with open("model.pkl", "rb") as f:
+    model = pickle.load(f)
 
 
 def predict_single(customer):
@@ -57,3 +43,11 @@ def predict_single(customer):
 
     result = model.predict([features])
     return float(result[0])
+
+
+def lambda_handler(event, context):
+    print("Parameters:", event)
+    customer = event['customer']
+    customer_model_instance = Customer(**customer)
+    prob = predict_single(customer_model_instance)
+    return prob
