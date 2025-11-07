@@ -41,7 +41,7 @@ The original dataset is from [Kaggle: Sleep Efficiency Dataset](https://www.kagg
 | **Bedtime** | The time the subject went to bed. |
 | **Wakeup time** | The time the subject woke up. |
 | **Sleep duration** | Total hours slept. |
-| **Sleep efficiency** | **(Target)** Proportion of time in bed spent asleep (0-1). |
+| **Sleep efficiency** | **(Target)** A measured score (0-1) of sleep quality. |
 | **REM sleep percentage** | Percentage of time in REM sleep. |
 | **Deep sleep percentage**| Percentage of time in deep sleep. |
 | **Light sleep percentage**| Percentage of time in light sleep. |
@@ -49,7 +49,7 @@ The original dataset is from [Kaggle: Sleep Efficiency Dataset](https://www.kagg
 | **Caffeine consumption**| Caffeine (mg) consumed in the 24 hours prior. |
 | **Alcohol consumption** | Alcohol (ounces) consumed in the 24 hours prior. |
 | **Smoking status** | "Yes" or "No". |
-| **Exercise frequency** | Times per week the subject exercises. |
+| **Exercise frequency** | Number of exercises per week. |
 
 -----
 
