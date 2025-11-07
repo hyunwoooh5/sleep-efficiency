@@ -61,7 +61,7 @@ The original dataset is from [Kaggle: Sleep Efficiency Dataset](https://www.kagg
 
 ### 1. Exploratory Data Analysis (EDA)
 
-In the [Jupyter Notebook (`notebook/notebook.ipynb`)](https://www.google.com/search?q=%5Bhttps://github.com/hyunwoooh5/sleep-efficiency/blob/main/notebook/notebook.ipynb%5D\(https://github.com/hyunwoooh5/sleep-efficiency/blob/main/notebook/notebook.ipynb\)), summary statistics were examined, missing values were imputed using mean and mode values, and variable correlations were analyzed.
+In the [Jupyter Notebook (`notebook/notebook.ipynb`)](https://github.com/hyunwoooh5/sleep-efficiency/blob/main/notebook/notebook.ipynb), summary statistics were examined, missing values were imputed using mean and mode values, and variable correlations were analyzed.
 
 Most variables were found to be largely independent, except for a notable correlation between `light_sleep_percentage` and `deep_sleep_percentage`, and `light_sleep_percentage` and `sleep_efficiency`.
 
