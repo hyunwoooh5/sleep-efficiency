@@ -1,3 +1,4 @@
+import json
 import pickle
 from typing import Literal
 from pydantic import BaseModel, Field
@@ -47,7 +48,14 @@ def predict_single(customer):
 
 def lambda_handler(event, context):
     print("Parameters:", event)
-    customer = event['customer']
+
+    if 'body' in event:
+        # Call HTTP (curl)
+        data = json.loads(event['body'])
+    else:
+        data = event
+
+    customer = data['customer']
     customer_model_instance = Customer(**customer)
     prob = predict_single(customer_model_instance)
     return prob
