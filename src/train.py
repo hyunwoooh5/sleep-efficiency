@@ -2,8 +2,6 @@ import pandas as pd
 import xgboost as xgb
 import pickle
 
-df = pd.read_csv("data/sleep-efficiency_cleaned.csv")
-
 
 def train(df, seed=42):
     y = df['sleep_efficiency'].to_numpy()
@@ -23,6 +21,8 @@ def train(df, seed=42):
 
 
 if __name__ == "__main__":
+    df = pd.read_csv("data/sleep-efficiency_cleaned.csv")
+
     model = train(df)
 
     with open("bin/model.pkl", "wb") as f:

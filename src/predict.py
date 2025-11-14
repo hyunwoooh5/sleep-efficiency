@@ -1,9 +1,6 @@
 import pickle
-from fastapi import FastAPI
-import uvicorn
-
 from typing import Literal
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field
 
 
 class Customer(BaseModel):
@@ -20,12 +17,6 @@ class Customer(BaseModel):
     sleep_time: float = Field(..., ge=0)
     getup_time: float = Field(..., ge=0)
 
-
-class PredictResponse(BaseModel):
-    sleep_efficiency: float
-
-
-app = FastAPI(title="sleep-efficiency")
 
 try:
     with open("bin/model.pkl", "rb") as f:
