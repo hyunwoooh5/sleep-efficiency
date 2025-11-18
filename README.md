@@ -9,6 +9,8 @@ This project explores the relationship between lifestyle habits and sleep qualit
 The final model, an **XGBoost Regressor**, is served via a FastAPI application and is also deployable as an AWS Lambda function.
 
 
+-----
+
 ## Problem Statement
 
 Sleep is a critical pillar of physical health, cognitive function, and emotional well-being. In our fast-paced society, many individuals struggle not only with the *quantity* of sleep but, more importantly, with its **quality**. Simply being in bed for eight hours does not guarantee restorative rest.
@@ -16,6 +18,9 @@ Sleep is a critical pillar of physical health, cognitive function, and emotional
 The relationship between daily habits and sleep quality is complex and deeply personal. Factors like caffeine intake, alcohol consumption, exercise frequency, and smoking all interact in non-obvious ways to affect how well we sleep.
 
 A more precise metric for sleep quality is **Sleep Efficiency**—the percentage of time spent in bed that one is actually asleep. A high efficiency score is a key indicator of good sleep health. However, most people lack a clear understanding of which specific lifestyle choices are impacting their sleep efficiency.
+
+
+-----
 
 ## The Objective
 
@@ -27,6 +32,7 @@ The ultimate goal is to create a predictive tool that could power a wellness app
 In this project, our aim is to predict sleep efficiency of individuals based on their sleep habits and lifestyle habits. 
 
 
+-----
 
 ## The Dataset
 
@@ -61,7 +67,7 @@ The original dataset is from [Kaggle: Sleep Efficiency Dataset](https://www.kagg
 
 ### 1. Exploratory Data Analysis (EDA)
 
-In the [Jupyter Notebook (`notebook/notebook.ipynb`)](https://github.com/hyunwoooh5/sleep-efficiency/blob/main/notebook/notebook.ipynb), summary statistics were examined, missing values were imputed using mean and mode values, and variable correlations were analyzed.
+In the [Jupyter Notebook (`notebook/notebook.ipynb`)](notebook/notebook.ipynb), summary statistics were examined, missing values were imputed using mean and mode values, and variable correlations were analyzed.
 
 Most variables were found to be largely independent, except for a notable correlation between `light_sleep_percentage` and `deep_sleep_percentage`, and `light_sleep_percentage` and `sleep_efficiency`.
 
@@ -69,16 +75,16 @@ Most variables were found to be largely independent, except for a notable correl
 
 Three different types of models were trained and evaluated to predict `sleep_efficiency`. The performance of all models was measured using the **Mean Squared Error (MSE)**.
 
-  * **Ridge Regression ($L_2$):** A linear model with $L_2$ regularization. The best MSE achieved was `0.00407` (with `alpha=0.5`).
-  * **Tree-Based Models:** Decision Tree, Random Forest, and XGBoost were tested. The best-performing model was **XGBoost**, which yielded an MSE of **`0.00262`**.
-  * **Neural Network:** A fully connected network with 4 hidden layers, 32 neurons each, CELU activation, and a 0.25 dropout rate. This model achieved an MSE of `0.00267`.
+  * **Ridge Regression ($L_2$):** A linear model with $L_2$ regularization. The best MSE achieved was `0.00405` (with `alpha=0.5`).
+  * **Tree-Based Models:** Decision Tree, Random Forest, and XGBoost were tested. The best-performing model was **XGBoost**, which yielded an MSE of **`0.00256`**.
+  * **Neural Network:** A fully connected network with 5 hidden layers, 32 neurons each, CELU activation, and a 0.25 dropout rate, with a 0.001 learning rate. This model achieved an MSE of `0.00294`.
 
 ### 3. Final Model
 
 The final selected model is an **XGBoost Regressor** with the following hyperparameters, as it provided the lowest MSE:
 
   * `n_estimators=50`
-  * `max_depth=2`
+  * `max_depth=3`
   * `learning_rate=5e-2`
 
 The trained model is saved as `bin/model.pkl`.
@@ -115,7 +121,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
     uv run python src/serve.py
     ```
 
-3.  The service will be available with a Swagger UI at [http://localhost:9696/docs](https://www.google.com/search?q=http://localhost:9696/docs).
+3.  The service will be available with a Swagger UI at [http://localhost:9696/docs](http://localhost:9696/docs).
 
 
 ### Option 2: Run Locally (with Docker)
@@ -132,7 +138,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
     docker run -it --rm --platform=linux/amd64 -p 9696:9696 sleep-efficiency
     ```
 
-3.  Access the service at [http://localhost:9696/docs](https://www.google.com/search?q=http://localhost:9696/docs).
+3.  Access the service at [http://localhost:9696/docs](http://localhost:9696/docs).
 
 
 ### Retrain the Model
@@ -193,7 +199,7 @@ aws iam attach-role-policy \
 
 #### 2. Deploy the Function
 
-The [deploy_lambda.sh](https://github.com/hyunwoooh5/sleep-efficiency/blob/main/deploy_lambda.sh) script handles building the `Dockerfile.lambda` image, pushing it to ECR, and creating/updating the Lambda function.
+The [deploy_lambda.sh](deploy_lambda.sh) script handles building the `Dockerfile.lambda` image, pushing it to ECR, and creating/updating the Lambda function.
 
 ```bash
 ./deploy_lambda.sh
@@ -243,3 +249,10 @@ curl -X POST 'https://4rrzhd6ucsbgzxieipazjcst4y0cibng.lambda-url.us-east-1.on.a
 └── .python-version                   # Python version for deployment reproducibility
 
 ```
+
+
+-----
+
+## License
+
+This project is licensed under the MIT License.

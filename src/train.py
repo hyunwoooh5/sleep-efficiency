@@ -11,7 +11,7 @@ def train(df, seed=42):
         objective='reg:squarederror',
         n_estimators=50,
         learning_rate=5e-2,
-        max_depth=2,
+        max_depth=3,
         random_state=seed
     )
 
